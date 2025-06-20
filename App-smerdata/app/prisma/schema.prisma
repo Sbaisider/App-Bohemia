@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Prodotto {
+  id         Int      @id @default(autoincrement())
+  nome       String
+  categoria  String
+  createdAt  DateTime @default(now())
+  lotti      Lotto[]
+}
+
+model Lotto {
+  id          Int      @id @default(autoincrement())
+  prodottoId  Int
+  quantita    Int
+  tipo        MovimentoTipo
+  zona        ZonaBar
+  provenienza String?
+  note        String?
+  createdAt   DateTime @default(now())
+
+  prodotto    Prodotto @relation(fields: [prodottoId], references: [id])
+}
+
+enum ZonaBar {
+  MAGAZZINO
+  CAMBUSA
+  MAIN
+  TOKYO
+  MUSA
+  TAVOLI
+}
+
+enum MovimentoTipo {
+  CARICO
+  SCARICO
+  CONSUMO
+  RIORDINO
+}
