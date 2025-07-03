@@ -1,0 +1,34 @@
+-- CreateTable
+CREATE TABLE "Prodotto" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "nome" TEXT NOT NULL,
+    "quantita" INTEGER NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Movimento" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "prodottoId" INTEGER NOT NULL,
+    "quantita" INTEGER NOT NULL,
+    "tipo" TEXT NOT NULL,
+    "data" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "Movimento_prodottoId_fkey" FOREIGN KEY ("prodottoId") REFERENCES "Prodotto" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "TavoloStorico" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "tavolo" INTEGER NOT NULL,
+    "persone" INTEGER NOT NULL,
+    "pagato" INTEGER NOT NULL,
+    "data" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "ConsumoCambusa" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "tavolo" INTEGER NOT NULL,
+    "bottiglia" TEXT NOT NULL,
+    "quantita" INTEGER NOT NULL,
+    "data" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
